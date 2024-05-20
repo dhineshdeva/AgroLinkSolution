@@ -198,21 +198,21 @@ namespace dotnetapp.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Brand = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SuitableCropCropId = table.Column<int>(type: "int", nullable: false),
+                    SuitableCrop = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     PricePerUnit = table.Column<float>(type: "real", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CropId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AgroChemicals", x => x.AgroChemicalId);
                     table.ForeignKey(
-                        name: "FK_AgroChemicals_Crops_SuitableCropCropId",
-                        column: x => x.SuitableCropCropId,
+                        name: "FK_AgroChemicals_Crops_CropId",
+                        column: x => x.CropId,
                         principalTable: "Crops",
-                        principalColumn: "CropId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CropId");
                 });
 
             migrationBuilder.CreateTable(
@@ -258,25 +258,25 @@ namespace dotnetapp.Migrations
                         column: x => x.AgroChemicalId,
                         principalTable: "AgroChemicals",
                         principalColumn: "AgroChemicalId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Requests_Crops_CropId",
                         column: x => x.CropId,
                         principalTable: "Crops",
                         principalColumn: "CropId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Requests_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AgroChemicals_SuitableCropCropId",
+                name: "IX_AgroChemicals_CropId",
                 table: "AgroChemicals",
-                column: "SuitableCropCropId");
+                column: "CropId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
