@@ -8,12 +8,12 @@ namespace dotnetapp.Models
         [Key]
         public int FeedbackId { get; set; }
 
-        [ForeignKey(nameof(FeedbackId))]
+        [ForeignKey("userId")]
         public int UserId { get; set; }
 
         public string FeedbackText { get; set; }
         public DateTime Date { get; set; }
 
-        public User? User { get; set; }
+        public virtual User? User { get; set; }
     }
 }

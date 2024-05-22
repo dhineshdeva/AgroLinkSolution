@@ -30,10 +30,10 @@ namespace dotnetapp.Models
 
         public DateTime RequestDate { get; set; }
 
-        public  AgroChemicals? AgroChemical { get; set;}
-        public Crop? Crop { get; set; }
+        public virtual AgroChemicals? AgroChemical { get; set;}
+        public virtual Crop? Crop { get; set; }
 
-        public  User? User { get; set;}
+        public virtual User? User { get; set;}
 
 
     }

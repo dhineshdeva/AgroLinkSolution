@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace dotnetapp.Models
 {
@@ -16,8 +17,8 @@ namespace dotnetapp.Models
         [Required(ErrorMessage = "Category is Required")]
         public string Category { get; set; }
         [Required(ErrorMessage = "Suitable Crop is Required")]
-
-        public Crop SuitableCrop { get; set; }
+        [ForeignKey("cropId")]
+        public int SuitableCrop { get; set; }
         [Required(ErrorMessage = "Description is Required")]
 
         public string Description { get; set; }
@@ -29,5 +30,7 @@ namespace dotnetapp.Models
         public float PricePerUnit { get; set; }
         [Required(ErrorMessage = "Image is Required")]
         public string Image { get; set; }
+
+        public virtual Crop? Crop { get; set; }
     }
 }

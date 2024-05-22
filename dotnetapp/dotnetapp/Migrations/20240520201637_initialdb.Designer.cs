@@ -12,7 +12,7 @@ using dotnetapp.Data;
 namespace dotnetapp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240520044429_initial-db")]
+    [Migration("20240520201637_initialdb")]
     partial class initialdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,9 @@ namespace dotnetapp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CropId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -58,12 +61,12 @@ namespace dotnetapp.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("SuitableCropCropId")
+                    b.Property<int>("SuitableCrop")
                         .HasColumnType("int");
 
                     b.HasKey("AgroChemicalId");
 
-                    b.HasIndex("SuitableCropCropId");
+                    b.HasIndex("CropId");
 
                     b.ToTable("AgroChemicals");
                 });
@@ -404,13 +407,11 @@ namespace dotnetapp.Migrations
 
             modelBuilder.Entity("dotnetapp.Models.AgroChemicals", b =>
                 {
-                    b.HasOne("dotnetapp.Models.Crop", "SuitableCrop")
+                    b.HasOne("dotnetapp.Models.Crop", "Crop")
                         .WithMany()
-                        .HasForeignKey("SuitableCropCropId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CropId");
 
-                    b.Navigation("SuitableCrop");
+                    b.Navigation("Crop");
                 });
 
             modelBuilder.Entity("dotnetapp.Models.Feedback", b =>
