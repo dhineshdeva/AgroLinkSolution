@@ -19,7 +19,6 @@ import { SellernavComponent } from './components/nav/sellernav/sellernav.compone
 import { FarmernavComponent } from './components/nav/farmernav/farmernav.component';
 import { ViewcropComponent } from './components/crop/viewcrop/viewcrop.component';
 import { UpdatecropComponent } from './components/crop/updatecrop/updatecrop.component';
-import { DeletecropComponent } from './components/crop/deletecrop/deletecrop.component';
 import { NewcropComponent } from './components/crop/newcrop/newcrop.component';
 
 
@@ -50,7 +49,7 @@ import { FormerviewfeedbackComponent } from './components/feedback/formerviewfee
     FarmernavComponent,
     ViewcropComponent,
     UpdatecropComponent,
-    DeletecropComponent,
+
     
     CreateagroComponent,
     ViewagroComponent,

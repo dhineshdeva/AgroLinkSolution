@@ -3,7 +3,7 @@ import { apiUrl } from 'src/apiconfig';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AgroChemicals } from '../models/agrochemicals';
 import { Observable } from 'rxjs';
-import { Request } from '../models/request.model';
+import { Requests } from '../models/request.model';
 @Injectable({
     providedIn: 'root'
 })
@@ -15,25 +15,29 @@ export class RequestService {
 
     }
 
-    addRequest(requestObject: Request): Observable<Request> {
-        const headers = new HttpHeaders({
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-        });
-        return this.http.post<Request>(`${this.apiUrl}/request/addRequest`, requestObject, { headers });
-    }
+    addRequest(requestObject: Requests): Observable<Requests> {
+        console.log("hai");
+        console.log(requestObject);
 
-    getRequestByRequestId(requestId: number): Observable<Request> {
-        const headers = new HttpHeaders({
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-        });
-        return this.http.get<Request>(`${this.apiUrl}/request/getRequestByRequestId${requestId}`, { headers });
-    }
-    getAllRequest(): Observable<Request[]> {
 
         const headers = new HttpHeaders({
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         });
-        return this.http.get<Request[]>(`${this.apiUrl}/agrochemical/getAllCrop`, { headers });
+        return this.http.post<Requests>(`${this.apiUrl}/Request/addRequest`, requestObject, { headers });
+    }
+
+    getRequestByRequestId(requestId: number): Observable<Requests> {
+        const headers = new HttpHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        });
+        return this.http.get<Requests>(`${this.apiUrl}/Request/getRequestByRequestId/${requestId}`, { headers });
+    }
+    getAllRequest(): Observable<Requests[]> {
+
+        const headers = new HttpHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        });
+        return this.http.get<Requests[]>(`${this.apiUrl}/Request/getAllRequest`, { headers });
     }
     deleteRequestByRequestId(requestId: number): Observable<void> {
         const headers = new HttpHeaders({
@@ -42,12 +46,22 @@ export class RequestService {
         return this.http.delete<void>(`${this.apiUrl}/request/deleteRequestByRequestId/${requestId}`, { headers });
     }
 
-    updateRequestByRequestId(requestId: string, requestObject: Request): Observable<Request> {
+    updateRequestByRequestId(requestId: number, requestObject: Requests): Observable<Requests> {
         const headers = new HttpHeaders({
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         });
-        return this.http.put<Request>(`${this.apiUrl}/request/updateRequestByRequestId/${requestId}`, requestObject, { headers });
-    
+        return this.http.put<Requests>(`${this.apiUrl}/request/updateRequestByRequestId/${requestId}`, requestObject, { headers });
+
+    }
+
+    getRequestByUserId(userId: number): Observable<Requests[]> {
+        console.log("hai");
+        console.log(userId);
+
+        const headers = new HttpHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        });
+        return this.http.get<Requests[]>(`${this.apiUrl}/Request/getRequestByUserId/${userId}`, { headers });
     }
 
 }

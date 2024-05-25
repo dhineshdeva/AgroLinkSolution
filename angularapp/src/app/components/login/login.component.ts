@@ -17,14 +17,17 @@ export class LoginComponent {
 
   login(): void {
     const loginData: Login = { Email: this.email, Password: this.password };
-    
+
     this.authService.login(loginData).subscribe(
       (asd) => {
         // Successful login      
-        
+        console.log(this.authService.isSeller());
+        console.log(this.authService.isFarmer());
+
+
         if (this.authService.isSeller()) {
           this.router.navigate(['/']); // Navigate to admin page
-        } else if (this.authService.isFarmer) {
+        } else if (this.authService.isFarmer()) {
           this.router.navigate(['/']); // Navigate to organizer page
         }
       },

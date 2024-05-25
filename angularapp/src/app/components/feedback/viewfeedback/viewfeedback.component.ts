@@ -19,8 +19,8 @@ export class ViewfeedbackComponent implements OnInit {
   }
 
   getAllLoansByUserId() {
-    const userId = localStorage.getItem('userId');
-    this.feedbackService.getAllfeedbacksByUserId(userId).subscribe(
+    const userId = Number(localStorage.getItem('userId'));
+    this.feedbackService.getFeedbacks().subscribe(
       (data: any) => {
         this.feedbacks = data;
         console.log(this.feedbacks);

@@ -43,14 +43,23 @@
         <div *ngIf="mobileNgModel.errors?.pattern" class="error-message">*Mobile number must be 10 digits</div>
       </div>
 
+      
+      <label for="profileImage">profileImage<span class="asterisk">*</span></label>
+      <input type="text" id="profileImage" [(ngModel)]="profileImage" name="profileImage" 
+      [ngModelOptions]="{standalone: true}"
+        required #profileImageNgModel="ngModel">
+      <div *ngIf="profileImageNgModel.invalid && (profileImageNgModel.dirty || profileImageNgModel.touched)" class="error-message">
+        *profileImage is required</div>
+
       <label for="userRole">Role<span class="asterisk">*</span></label>
       <select id="userRole" [(ngModel)]="userRole" name="userRole" required #userRoleNgModel="ngModel">
         <option value="" disabled>Select a role</option>
-        <option value="Admin">ADMIN</option>
-        <option value="User">USER</option>
+        <option value="Farmer">Farmer</option>
+        <option value="Seller">Seller</option>
       </select>
       <div *ngIf="userRoleNgModel.invalid && (userRoleNgModel.dirty || userRoleNgModel.touched)" class="error-message">
         *Role is required</div>
+
 
       <div *ngIf="errorMessage" class="error-message">
           *{{ errorMessage }}

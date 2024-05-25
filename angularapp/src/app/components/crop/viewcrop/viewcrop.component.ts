@@ -55,8 +55,11 @@ export class ViewcropComponent implements OnInit {
     this.showDeletePopup = true;
   }
 
-  navigateToEditLoan(id: string) {
-    // this.router.navigate(['/admin/editloan', id]);
+  navigateToEditCrop(id: number) {
+    console.log(id);
+    
+
+    this.router.navigate(['/farmer/crop/update/', id]);
   }
 
   handleConfirmDelete() {

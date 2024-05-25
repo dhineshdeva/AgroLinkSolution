@@ -17,7 +17,7 @@ export class UpdatecropComponent implements OnInit {
     CropType: '',
     Description: null,
     PlantingDate: null
-    
+
   };
   errors: any = {};
   successPopup: boolean; // Add this line to declare the successPopup property
@@ -29,8 +29,8 @@ export class UpdatecropComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.id = this.route.snapshot.paramMap.get('id');
-    this.id = 1
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+
     this.getCropById();
   }
 
@@ -80,7 +80,7 @@ export class UpdatecropComponent implements OnInit {
   }
 
   navigateToDashboard() {
-    // this.router.navigate(['/admin/view/viewloan']);
+    this.router.navigate(['/farmer/crop/view']);
   }
 
 }

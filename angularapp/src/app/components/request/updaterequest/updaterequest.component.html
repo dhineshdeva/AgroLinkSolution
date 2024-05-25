@@ -1,1 +1,130 @@
-<p>updaterequest works!</p>
+
+<div class="loan-form-container" [class.blur]="successPopup">
+    <button type="button" id="backButton" (click)="navigateToDashboard()">
+      Back
+    </button>
+    <h2>Edit Request</h2>
+    <hr>
+    <form #requestForm="ngForm" (ngSubmit)="handleUpdateRequest(requestForm)">
+      <label for="UserId">UserId<span class="required">*</span></label>
+      <input
+        id="UserId"
+        type="number"
+        name="UserId"
+        [(ngModel)]="formData.UserId"
+        placeholder="UserId"
+        required
+        disabled
+        #UserId="ngModel"
+        (change)="handleChange($event, 'UserId')"
+      />
+      <div class="error" *ngIf="UserId.invalid && UserId.touched">
+        *UserId is required
+      </div>
+  
+      <label for="CropId">CropId<span class="CropId">*</span></label>
+      <input
+        id="CropId"
+        type="number"
+        name="CropId"
+        [(ngModel)]="formData.CropId"
+        placeholder="CropId"
+        required
+        #CropId="ngModel"
+        disabled
+        (change)="handleChange($event, 'CropId')"
+      />
+      <div class="error" *ngIf="CropId.invalid && CropId.touched">
+        *CropId is required
+      </div>
+  
+      <label for="AgroChemicalId">AgroChemicalId<span class="required">*</span></label>
+      <input
+        id="AgroChemicalId"
+        type="number"
+        name="AgroChemicalId"
+        [(ngModel)]="formData.AgroChemicalId"
+        placeholder="AgroChemicalId"
+        required
+        disabled
+        #AgroChemicalId="ngModel"
+        (change)="handleChange($event, 'AgroChemicalId')"
+      />
+      <div class="error" *ngIf="AgroChemicalId.invalid && AgroChemicalId.touched">
+        *AgroChemicalId
+      </div>
+  
+      <label for="Quantity">Quantity<span class="required">*</span></label>
+      <input
+        id="Quantity"
+        type="number"
+        name="Quantity"
+        [(ngModel)]="formData.Quantity"
+        placeholder="Quantity"
+        required
+        #Quantity="ngModel"
+        (change)="handleChange($event, 'Quantity')"
+      />
+      <div class="error" *ngIf="Quantity.invalid && Quantity.touched">
+        *Quantity  is required
+      </div>
+
+      <label for="RequestPurpose">RequestPurpose<span class="required">*</span></label>
+      <input
+        id="RequestPurpose"
+        type="text"
+        name="RequestPurpose"
+        [(ngModel)]="formData.RequestPurpose"
+        placeholder="RequestPurpose"
+        required
+        #RequestPurpose="ngModel"
+        (change)="handleChange($event, 'RequestPurpose')"
+      />
+      <div class="error" *ngIf="RequestPurpose.invalid && RequestPurpose.touched">
+        *RequestPurpose  is required
+      </div>
+
+      <label for="Status">Status<span class="required">*</span></label>
+      <input
+        id="Status"
+        type="text"
+        name="Status"
+        [(ngModel)]="formData.Status"
+        placeholder="Status"
+        required
+        #Status="ngModel"
+        (change)="handleChange($event, 'Status')"
+      />
+      <div class="error" *ngIf="Status.invalid && Status.touched">
+        *Status  is required
+      </div>
+
+      <label for="RequestDate">Quantity<span class="required">*</span></label>
+      <input
+        id="RequestDate"
+        type="date"
+        name="RequestDate"
+        [(ngModel)]="formData.RequestDate"
+        placeholder="RequestDate"
+        required
+        #RequestDate="ngModel"
+        (change)="handleChange($event, 'RequestDate')"
+      />
+      <div class="error" *ngIf="RequestDate.invalid && RequestDate.touched">
+        *RequestDate  is required
+      </div>
+  
+      <div *ngIf="errorMessage" class="error">
+        *{{ errorMessage }}
+      </div>
+
+
+  
+      <button type="submit">Update Request</button>
+    </form>
+  </div>
+  <div class="success-popup" *ngIf="successPopup">
+    <p>Updated Request</p>
+    <button type="button" (click)="handleOkClick()">OK</button>
+  </div>
+  

@@ -41,11 +41,13 @@ namespace dotnetapp.Services
 
         public async Task<bool> UpdateCropByCropId(int cropId, Crop crop)
         {
+           
             var existingCrop = await _context.Crops.FirstOrDefaultAsync(c => c.CropId == cropId);
             if (existingCrop == null)
             {
                 return false;
             }
+            crop.CropId = cropId;
             _context.Entry(existingCrop).CurrentValues.SetValues(crop);
             await _context.SaveChangesAsync();
             return true;

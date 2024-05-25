@@ -1,5 +1,6 @@
 ﻿using dotnetapp.Models;
 using dotnetapp.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,14 +31,15 @@ namespace dotnetapp.Controllers
             }
         }
         //getFeedbacksByUserId
+        [Authorize(Roles = "Farmer")]
 
-        [HttpGet("/getFeedbacksByUserId/:userId")]
-        public async Task<ActionResult<Crop>> GetFeedbacksByUserId(int userID)
-        {
-            var crop = await _feedbackService.GetFeedbacksByUserId(userID);
-            if (crop == null)
+        [HttpGet("getFeedbacksByUserId/{userId}")]
+        public async Task<ActionResult<Feedback>> GetFeedbacksByUserId(int userID)
+       {
+            var feedbacks = await _feedbackService.GetFeedbacksByUserId(userID);
+            if (feedbacks == null)
                 return NotFound(new { message = "Cannot Find any FeedBack" });
-            return Ok(crop);
+            return Ok(feedbacks);
         }
 
 

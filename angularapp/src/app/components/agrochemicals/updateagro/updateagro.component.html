@@ -1,1 +1,140 @@
-<p>updateagro works!</p>
+
+<div class="loan-form-container" [class.blur]="successPopup">
+    <button type="button" id="backButton" (click)="navigateToDashboard()">
+      Back
+    </button>
+    <h2>Edit AgroChemicals</h2>
+    <hr>
+    <form #agroEditForm="ngForm" (ngSubmit)="handleUpdateAgro(agroEditForm)">
+      <label for="Name">Name<span class="required">*</span></label>
+      <input
+        id="Name"
+        type="text"
+        name="Name"
+        [(ngModel)]="formData.Name"
+        placeholder="Name"
+        required
+        #Name="ngModel"
+        (change)="handleChange($event, 'Name')"
+      />
+      <div class="error" *ngIf="Name.invalid && Name.touched">
+        *Name is required
+      </div>
+  
+      <label for="Brand">Brand<span class="required">*</span></label>
+      <input
+        id="Brand"
+        type="text"
+        name="Brand"
+        [(ngModel)]="formData.Brand"
+        placeholder="Brand"
+        required
+        #Brand="ngModel"
+        (change)="handleChange($event, 'Brand')"
+      />
+      <div class="error" *ngIf="Brand.invalid && Brand.touched">
+        *Brand is required
+      </div>
+  
+      <label for="Category">Category<span class="required">*</span></label>
+      <input
+        id="Category"
+        type="text"
+        name="Category"
+        [(ngModel)]="formData.Category"
+        placeholder="Category"
+        required
+        #Category="ngModel"
+        (change)="handleChange($event, 'Category')"
+      />
+      <div class="error" *ngIf="Category.invalid && Category.touched">
+        *Category
+      </div>
+  
+      <label for="SuitableCrop">SuitableCrop<span class="required">*</span></label>
+      <input
+        id="SuitableCrop"
+        type="number"
+        name="SuitableCrop"
+        [(ngModel)]="formData.SuitableCrop"
+        placeholder="SuitableCrop"
+        required
+        #SuitableCrop="ngModel"
+        (change)="handleChange($event, 'SuitableCrop')"
+      />
+      <div class="error" *ngIf="SuitableCrop.invalid && SuitableCrop.touched">
+        *SuitableCrop  is required
+      </div>
+
+      <label for="Description">Description<span class="required">*</span></label>
+      <input
+        id="Description"
+        type="text"
+        name="Description"
+        [(ngModel)]="formData.Description"
+        placeholder="SuitableCrop"
+        required
+        #Description="ngModel"
+        (change)="handleChange($event, 'Description')"
+      />
+      <div class="error" *ngIf="Description.invalid && Description.touched">
+        *Description  is required
+      </div>
+
+      <label for="Quantity">Quantity<span class="required">*</span></label>
+      <input
+        id="Quantity"
+        type="number"
+        name="Quantity"
+        [(ngModel)]="formData.Quantity"
+        placeholder="Quantity"
+        required
+        #Quantity="ngModel"
+        (change)="handleChange($event, 'Quantity')"
+      />
+      <div class="error" *ngIf="Quantity.invalid && Quantity.touched">
+        *Quantity  is required
+      </div>
+
+      <label for="PricePerUnit">PricePerUnit<span class="required">*</span></label>
+      <input
+        id="PricePerUnit"
+        type="number"
+        name="PricePerUnit"
+        [(ngModel)]="formData.PricePerUnit"
+        placeholder="PricePerUnit"
+        required
+        #PricePerUnit="ngModel"
+        (change)="handleChange($event, 'PricePerUnit')"
+      />
+      <div class="error" *ngIf="PricePerUnit.invalid && PricePerUnit.touched">
+        *PricePerUnit  is required
+      </div>
+
+      <label for="Image">Image<span class="required">*</span></label>
+      <input
+        id="Image"
+        type="text"
+        name="Image"
+        [(ngModel)]="formData.Image"
+        placeholder="Image"
+        required
+        #Image="ngModel"
+        (change)="handleChange($event, 'Image')"
+      />
+      <div class="error" *ngIf="Image.invalid && Image.touched">
+        *Image  is required
+      </div>
+  
+      <div *ngIf="errorMessage" class="error">
+        *{{ errorMessage }}
+      </div>
+  
+      <button type="submit">Update AgroChemical</button>
+    </form>
+  </div>
+  <div class="success-popup" *ngIf="successPopup">
+    <p>Updated successfully</p>
+    <button type="button" (click)="handleOkClick()">OK</button>
+  </div>
+  

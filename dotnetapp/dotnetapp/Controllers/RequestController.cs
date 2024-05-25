@@ -1,11 +1,12 @@
 ﻿using dotnetapp.Models;
 using dotnetapp.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnetapp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class RequestController : ControllerBase
     {
@@ -17,8 +18,9 @@ namespace dotnetapp.Controllers
         }
 
         //getAllRequest
+        [Authorize(Roles ="Seller")]
         [HttpGet("getAllRequest")]
-        public async Task<ActionResult<IEnumerable<Crop>>> GetAllRequest()
+        public async Task<ActionResult<IEnumerable<Request>>> GetAllRequest()
         {
             var request = await _requestService.GetAllRequest();
             if (request == null)
@@ -31,8 +33,9 @@ namespace dotnetapp.Controllers
             }
         }
         //getRequestByRequestId
-        [HttpGet("getRequestByRequestId/:requestId")]
-        public async Task<ActionResult<Crop>> GetRequestByRequestId(int requestId)
+        [Authorize(Roles ="Seller,Farmer")]
+        [HttpGet("getRequestByRequestId/{requestId}")]
+        public async Task<ActionResult<Request>> GetRequestByRequestId(int requestId)
         {
             var request = await _requestService.GetRequestByRequestId(requestId);
             if (request == null)
@@ -41,7 +44,7 @@ namespace dotnetapp.Controllers
         }
 
         //addRequest
-
+        [Authorize(Roles ="Farmer")]
         [HttpPost("addRequest")]
         public async Task<ActionResult> AddRequest([FromBody] Request request)
         {
@@ -65,9 +68,9 @@ namespace dotnetapp.Controllers
         }
 
         //updateRequestByRequestId
-
-        [HttpPut("updateRequestByRequestId/:requestId")]
-        public async Task<ActionResult> UpdateCropByCropId(int requestId, [FromBody] Request request)
+        [Authorize(Roles = "Farmer,Seller")]
+        [HttpPut("updateRequestByRequestId/{requestId}")]
+        public async Task<ActionResult> UpdateRequestByRequestId(int requestId, [FromBody] Request request)
         {
             try
             {
@@ -85,7 +88,7 @@ namespace dotnetapp.Controllers
         }
 
         //deleteRequestByRequestId
-        [HttpDelete("deleteRequestByRequestId/:requestId")]
+        [HttpDelete("deleteRequestByRequestId/{requestId}")]
         public async Task<ActionResult> DeleteRequestByRequestId(int requestId)
         {
             try
@@ -102,11 +105,12 @@ namespace dotnetapp.Controllers
             }
         }
 
-        [HttpGet]
+        [Authorize(Roles ="Farmer")]
+        [HttpGet("getRequestByUserId/{userId}")]
         //getRequestByUserId
-        public async Task<ActionResult<Crop>> GetRequestByUserId(int userId)
+        public async Task<ActionResult<Request>> GetRequestByUserId(int userId)
         {
-            var request = await _requestService.getRequestByUserId(userId);
+            var request = await _requestService.GetRequestByUserId(userId);
             if (request == null)
                 return NotFound(new { message = "Cannot Find any Request For User" });
             return Ok(request);

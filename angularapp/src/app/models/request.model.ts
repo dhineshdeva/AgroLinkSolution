@@ -1,15 +1,12 @@
+// Request Interface to Get the AgroChemical Request
 
-
-export interface Request {
-  
-    requestId:number;
-    userId:number;
-    cropId:number;
-    agrochemicalId:number;
-    quantity:number;
-    requestPurpose:string;
-    status:string
-    requestDate:Date;
-    
-
+export interface Requests {
+    RequestId?: number;
+    UserId: number;
+    CropId: number;
+    AgroChemicalId: number;
+    Quantity: number;
+    RequestPurpose: string;
+    Status: string;
+    RequestDate: Date;
 }

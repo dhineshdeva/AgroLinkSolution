@@ -12,7 +12,7 @@ import { Login } from '../models/login.model';
 export class AuthService {
   private currentUserSubject: BehaviorSubject<string | null>;
   public currentUser: Observable<string | null>;
-  public apiUrl = apiUrl; // Replace with your Spring Boot backend URL
+  public apiUrl = apiUrl; 
   private userRoleSubject = new BehaviorSubject<string>('');
   private userIdSubject = new BehaviorSubject<string>('');
   userRole$: Observable<string> = this.userRoleSubject.asObservable();
@@ -31,7 +31,7 @@ export class AuthService {
     const body = user;
     console.log("inservice", body);
 
-    return this.http.post<any>(`${this.apiUrl}/api/register`, body).pipe(
+    return this.http.post<any>(`${this.apiUrl}/user/register`, body).pipe(
       tap((user) => this.storeUserData(user)),
       catchError(this.handleError<any>('register', true))
     );
@@ -39,8 +39,8 @@ export class AuthService {
 
   login(login: Login): Observable<any> {
     const loginData = login;
-  
-    return this.http.post<Login>(`${this.apiUrl}/api/user/login`, loginData)
+
+    return this.http.post<Login>(`${this.apiUrl}/user/login`, loginData)
       .pipe(
         tap(response => {
           console.log(response.token);
@@ -59,7 +59,7 @@ export class AuthService {
             this.userRoleSubject.next(decodedToken['role']);
             this.userIdSubject.next(decodedToken['nameid']);
             this.isAuthenticatedSubject.next(true);
-            
+
           } else {
             console.error('Unable to decode token or missing claims');
           }
@@ -81,15 +81,7 @@ export class AuthService {
     return !!token; // Return true if the token exists
   }
 
-  isAdmin(): boolean {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decodedToken = this.decodeToken(token);
-      console.log("isAdmindecodedToken", decodedToken);
-      return decodedToken['role'] === 'Admin';
-    }
-    return false;
-  }
+ 
   isFarmer(): boolean {
     console.log(localStorage.getItem('userRole'))
     if (localStorage.getItem("userRole") == "Farmer")
@@ -132,7 +124,7 @@ export class AuthService {
   private decodeToken(token: string): any {
 
     console.log("Hello");
-    
+
     try {
       const decoded = JSON.parse(atob(token.split('.')[1]));
       console.log(decoded);

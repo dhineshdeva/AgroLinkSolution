@@ -3,9 +3,9 @@ export class User {
   UserId?: number;
   Email: string;
   Password: string;
-  Username: string;
+  UserName: string;
   MobileNumber: string;
-  UserRole: string;
-  
+  Role: string;
+  ProfileImage:string
 }
 

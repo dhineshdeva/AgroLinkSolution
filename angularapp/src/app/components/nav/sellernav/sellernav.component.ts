@@ -28,7 +28,8 @@ export class SellernavComponent implements OnInit {
     if (this.isLoggedIn) {
       this.isSeller = this.authService.isSeller();
     }
-    console.log(this.isSeller);
+    console.log("Seller"+this.isSeller);
+    console.log("Former"+this.authService.isFarmer());
   }
 
 }

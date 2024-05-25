@@ -14,10 +14,13 @@ export class CropService {
   constructor(private http: HttpClient) {
 
   }
-
+// add a new crop
   addCrop(requestObject: Crop): Observable<Crop> {
+    console.log(localStorage.getItem('token'));
+    
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+      
     });
     return this.http.post<Crop>(`${this.apiUrl}/crop/addcrop`, requestObject, { headers });
   }
@@ -26,7 +29,7 @@ export class CropService {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + localStorage.getItem('token')
     });
-    return this.http.get<Crop>(`${this.apiUrl}/crop/getCropByCropID${id}`, { headers });
+    return this.http.get<Crop>(`${this.apiUrl}/crop/getCropByCropID/${id}`, { headers });
   }
   getAllCrops(): Observable<Crop[]> {
 

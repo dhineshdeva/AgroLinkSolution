@@ -1,5 +1,6 @@
 ﻿using dotnetapp.Models;
 using dotnetapp.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace dotnetapp.Controllers
         }
 
         // getAllCrop
+        [Authorize(Roles = "Farmer")]
         [HttpGet("GetAllCrop")]
         public async Task<ActionResult<IEnumerable<Crop>>> GetAllCrop()
         {
@@ -30,7 +32,8 @@ namespace dotnetapp.Controllers
             }
         }
         //getCropByCropID
-        [HttpGet("getCropByCropID/:cropId")]
+        [Authorize(Roles = "Farmer")]
+        [HttpGet("getCropByCropID/{cropId}")]
         public async Task<ActionResult<Crop>> GetCropByCropID(int cropId)
         {
             var crop = await _cropService.GetGropByCropId(cropId);
@@ -40,7 +43,7 @@ namespace dotnetapp.Controllers
         }
 
         //addCrops
-
+        [Authorize(Roles ="Farmer")]
         [HttpPost("addCrop")]
         public async Task<ActionResult> AddCrop([FromBody] Crop crop)
         {
@@ -64,8 +67,9 @@ namespace dotnetapp.Controllers
         }
 
         // updateCropByCropID
+        [Authorize(Roles = "Farmer")]
 
-        [HttpPut("updateCropByCropID/:cropId")]
+        [HttpPut("updateCropByCropID/{cropId}")]
         public async Task<ActionResult> UpdateCropByCropId(int cropId, [FromBody] Crop crop)
         {
             try
@@ -84,7 +88,8 @@ namespace dotnetapp.Controllers
         }
 
         //deleteCropByCropID
-        [HttpDelete("deleteCropByCropID/:cropId")]
+        [Authorize(Roles = "Farmer")]
+        [HttpDelete("deleteCropByCropID/{cropId}")]
         public async Task<ActionResult> DeleteCropByCropID(int cropId)
         {
             try

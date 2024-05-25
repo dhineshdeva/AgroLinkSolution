@@ -12,11 +12,26 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers()
-    .AddJsonOptions(options=>
+    .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         options.JsonSerializerOptions.PropertyNamingPolicy = null;
     });
+
+// Add the database Context
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
+// add the identity Service
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
+// Adding Services
+
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<CropService>();
+builder.Services.AddScoped<AgrochemicalService>();
+builder.Services.AddScoped<FeedbackService>();
+builder.Services.AddScoped<RequestService>();
 
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
@@ -54,20 +69,6 @@ builder.Services.AddAuthentication(options =>
     //    }
     //};
 });
-// Add the database Context
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
-// add the identity Service
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
-
-// Adding Services
-
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<CropService>();
-builder.Services.AddScoped<AgrochemicalService>();
-builder.Services.AddScoped<FeedbackService>();
-builder.Services.AddScoped<RequestService>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -81,6 +82,7 @@ options.AddDefaultPolicy(builder =>
     builder.AllowAnyOrigin()
     .AllowAnyMethod()
     .AllowAnyHeader();
+    
 })
 );
 
@@ -93,6 +95,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseHttpsRedirection();
 app.UseCors();

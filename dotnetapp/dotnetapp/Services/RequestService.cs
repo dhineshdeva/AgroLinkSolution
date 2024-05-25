@@ -15,9 +15,9 @@ namespace dotnetapp.Services
 
 
         //getRequestByUserId
-        public async Task<Request> getRequestByUserId(int userId)
+        public async Task<IEnumerable<Request>> GetRequestByUserId(int userId)
         {
-            return await _context.Requests.FirstOrDefaultAsync(c => c.UserId == userId);
+            return await _context.Requests.Where(c => c.UserId == userId).ToListAsync();
         }
 
         //addRequest
@@ -53,12 +53,16 @@ namespace dotnetapp.Services
         //updateRequestByRequestId
         public async Task<bool> UpdateRequestByRequestId(int requestId, Request request)
         {
+            request.RequestId = requestId;
             var existingRequest = await _context.Requests.FirstOrDefaultAsync(c => c.RequestId == requestId);
             if (existingRequest == null)
             {
                 return false;
             }
+            existingRequest = request;
+           
             _context.Entry(existingRequest).CurrentValues.SetValues(request);
+
             await _context.SaveChangesAsync();
             return true;
         }

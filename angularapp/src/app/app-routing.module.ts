@@ -9,7 +9,6 @@ import { AuthGuard } from './components/authguard/auth.guard';
 import { NewcropComponent } from './components/crop/newcrop/newcrop.component';
 import { ViewcropComponent } from './components/crop/viewcrop/viewcrop.component';
 import { UpdatecropComponent } from './components/crop/updatecrop/updatecrop.component';
-import { DeletecropComponent } from './components/crop/deletecrop/deletecrop.component';
 import { ViewagroComponent } from './components/agrochemicals/viewagro/viewagro.component';
 import { CreateagroComponent } from './components/agrochemicals/createagro/createagro.component';
 import { UpdateagroComponent } from './components/agrochemicals/updateagro/updateagro.component';
@@ -29,31 +28,36 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: RegistrationComponent },
   { path: 'error', component: ErrorComponent },
+  // Farmer Navigations
+  // Farmer Crop Navigatio
   { path: 'farmer/crop/add', component: NewcropComponent },
   { path: 'farmer/crop/view', component: ViewcropComponent },
-  { path: 'farmer/crop/update', component: UpdatecropComponent },
-  { path: 'farmer/crop/delete', component: DeletecropComponent },
+  { path: 'farmer/crop/update/:id', component: UpdatecropComponent },
 
+  // Farmer Agro Navigation 
   { path: 'farmer/agro/view', component: ViewagroComponent },
-  { path: 'farmer/request/create', component: CreaterequestComponent },
+  { path: 'farmer/agro/createrequest/:id', component: CreaterequestComponent },
 
-  { path: 'seller/agro/view', component: ViewagroComponent },
-
-  { path: 'seller/agro/create', component: CreateagroComponent },
-  { path: 'seller/agro/update', component: UpdateagroComponent },
-  { path: 'seller/agro/delete', component: DeleteagroComponent },
-
+  // Farmer Request Navigation
   { path: 'farmer/request/create', component: CreaterequestComponent },
   { path: 'farmer/request/view', component: ViewrequestComponent },
-  { path: 'farmer/request/update', component: UpdaterequestComponent },
+  { path: 'farmer/request/update/:id', component: UpdaterequestComponent },
   { path: 'farmer/request/delete', component: DeleterequestComponent },
 
+  //Farmer Feedback Navigation
   { path: 'farmer/feedback/create', component: CreatefeedbackComponent },
   { path: 'farmer/feedback/myfeedback', component: FormerviewfeedbackComponent },
 
+  //Seller Navigation
+  // Seller AgroChemical Navighation
+  { path: 'seller/agro/view', component: ViewagroComponent },
+  { path: 'seller/agro/create', component: CreateagroComponent },
+  { path: 'seller/agro/update/:id', component: UpdateagroComponent },
+
   { path: 'seller/feedback/myfeedback', component: ViewfeedbackComponent },
-{path:'seller/formerrequest/viewrequest', component:ViewrequestComponent},
-{path:'seller/formerrequest/changeStatus', component:UpdaterequestComponent},
+  { path: 'seller/formerrequest/viewrequest', component: ViewrequestComponent },
+  
+  { path: 'seller/formerrequest/changeStatus:/:id', component: UpdaterequestComponent },
 
   { path: '**', redirectTo: '/error' },
 ];

@@ -6,17 +6,15 @@
 
             <a routerLinkActive="active">Crop</a>
             <ul class="sub-menu">
-                <li><a routerLink="/farmer/crop/add">Create</a></li>
-                <li><a routerLink="/farmer/crop/view">Views</a></li>
-                <li><a routerLink="/farmer/crop/update">Update</a></li>
-                <li><a routerLink="/farmer/crop/delete">Delkete</a></li>
+                <li><a routerLink="/farmer/crop/add">Create Crop</a></li>
+                <li><a routerLink="/farmer/crop/view">View Crops</a></li>
+                
             </ul>
         </li>
         <li *ngIf="isFarmer">
             <a routerLinkActive="active">AgroChemicals</a>
             <ul class="sub-menu">
-                <li><a routerLink="/farmer/agro/view">view</a></li>
-                <li><a routerLink="/farmer/request/create">Apply Request</a></li>
+                <li><a routerLink="/farmer/agro/view">view AgroChemicals</a></li>              
 
             </ul>
         </li>
@@ -24,9 +22,8 @@
         <li *ngIf="isFarmer">
             <a routerLinkActive="active">My Request</a>
             <ul class="sub-menu">
-                <li><a routerLink="/farmer/request/view">View</a></li>
-                <li><a routerLink="/farmer/request/update">Update</a></li>
-                <li><a routerLink="/farmer/request/delete">Delete</a></li>
+                <li><a routerLink="/farmer/request/view">View My Request</a></li>
+               
 
             </ul>
         </li>

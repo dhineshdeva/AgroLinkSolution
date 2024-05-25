@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AgrochemicalService } from 'src/app/services/agrochemical.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-viewagro',
@@ -9,6 +10,8 @@ import { AgrochemicalService } from 'src/app/services/agrochemical.service';
 })
 export class ViewagroComponent implements OnInit {
 
+  // Check User
+  isFarmer:boolean=false;
   availableAgroChemicals: any[] = [];
   showDeletePopup = false;
   agroToDelete: number | null = null;
@@ -24,15 +27,18 @@ export class ViewagroComponent implements OnInit {
   errorMessage: string = '';
   allagrochemicals: any[] = []; // Declare the allcrops property
 
-  constructor(private router: Router, private agroService: AgrochemicalService) {}
+  constructor(private router: Router, private agroService: AgrochemicalService, private authService:AuthService) {}
 
   ngOnInit(): void {
+    this.isFarmer= this.authService.isFarmer();
     this.fetchAvailableAgroChemicals();
   }
 
   fetchAvailableAgroChemicals() {
     this.agroService.getAllAgrochemicals().subscribe(
       (data: any) => {
+        console.log(data);
+        
         this.availableAgroChemicals = data;
         this.maxRecords = this.availableAgroChemicals.length;
         this.allagrochemicals = data; // Populate allcrops with the initial list of crops
@@ -55,8 +61,15 @@ export class ViewagroComponent implements OnInit {
     this.showDeletePopup = true;
   }
 
-  navigateToEditLoan(id: string) {
-    // this.router.navigate(['/admin/editloan', id]);
+  navigateToEditAgro(id: number) {
+    console.log(id);
+    
+    this.router.navigate(['/seller/agro/update', id]);
+  }
+
+  navigateToCreateRequest(id:number)
+  {
+    this.router.navigate(["/farmer/agro/createrequest", id])
   }
 
   handleConfirmDelete() {

@@ -9,19 +9,19 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 
 export class FarmernavComponent implements OnInit {
-  isLoggedIn: boolean = true;
-  isFarmer: boolean = true;
+  isLoggedIn: boolean = false;
+  isFarmer: boolean = false;
 
   constructor(private authService: AuthService) {
     this.authService.isAuthenticated$.subscribe((authenticated: boolean) => {
       this.isLoggedIn = authenticated;
-      // if (this.isLoggedIn) {
-      //   this.isFarmer = this.authService.isFarmer();
+      if (this.isLoggedIn) {
+        this.isFarmer = this.authService.isFarmer();
 
-      //   console.log(this.isFarmer);
-      // } else {
+        console.log(this.isFarmer);
+      } else {
          this.isFarmer = true;
-      // }
+      }
     });
   }
 

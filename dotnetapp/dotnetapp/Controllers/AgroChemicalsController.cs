@@ -1,5 +1,6 @@
 ﻿using dotnetapp.Models;
 using dotnetapp.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace dotnetapp.Controllers
             _agrochemicalService = agrochemicalService;
         }
         //addAgrochemical
+        [Authorize(Roles ="Seller")]
         [HttpPost("addAgrochemical")]
         public async Task<ActionResult> AddAgrochemical(AgroChemicals agroChemicals)
         {
@@ -38,9 +40,10 @@ namespace dotnetapp.Controllers
             }
 
         }
-       
+
         //getAgrochemicalByAgrochemicalID
-        [HttpGet("getAgrochemicalByAgrochemicalID/:agroChemicalID")]
+        [Authorize(Roles = "Seller")]
+        [HttpGet("getAgrochemicalByAgrochemicalID/{agroChemicalID}")]
         public async Task<ActionResult> GetAgrochemicalByAgrochemicalID(int agroChemicalID)
         {
             var agroChemical = await _agrochemicalService.GetAgrochemicalByAgrochemicalID(agroChemicalID);
@@ -48,8 +51,10 @@ namespace dotnetapp.Controllers
                 return NotFound(new { message = "Cannot Find any AgroChemicals" });
             return Ok(agroChemical);
         }
+
         //updateAgrochemicalByAgrochemicalID
-        [HttpPut("updateAgrochemicalByAgrochemicalID/:agrochemicalId")]
+        [Authorize(Roles = "Seller")]
+        [HttpPut("updateAgrochemicalByAgrochemicalID/{agrochemicalId}")]
         public async Task<ActionResult> UpdateAgrochemicalByAgrochemicalID(int agroChemicalID, AgroChemicals agroChemicals)
         {
             try
@@ -68,7 +73,8 @@ namespace dotnetapp.Controllers
         }
 
         //deleteAgrochemicalByAgrochemicalID
-        [HttpDelete("deleteAgrochemicalByAgrochemicalID/:agrochemicalId")]
+        [Authorize(Roles = "Seller")]
+        [HttpDelete("deleteAgrochemicalByAgrochemicalID/{agrochemicalId}")]
         public async Task<ActionResult> DeleteAgrochemicalByAgrochemicalID(int agroChemicalID)
         {
 
@@ -87,6 +93,7 @@ namespace dotnetapp.Controllers
         }
         //getAllAgrochemicals
         [HttpGet("getAllAgrochemicals")]
+        [Authorize(Roles = "Seller,Farmer")]
         public async Task<ActionResult<IEnumerable<AgroChemicals>>> GetAllAgrochemicals()
         {
             var agroChemicalas = await _agrochemicalService.GetAllAgrochemicals();

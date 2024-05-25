@@ -15,11 +15,13 @@ export class FormerviewfeedbackComponent implements OnInit {
   constructor(private feedbackService: FeedbackService) { }
 
   ngOnInit(): void {
-    this.getAllLoansByUserId();
+    this.getAllFormerFeedback();
   }
 
-  getAllLoansByUserId() {
-    const userId = localStorage.getItem('userId');
+  getAllFormerFeedback() {
+    const userId = Number(localStorage.getItem('userId'));
+    console.log(userId);
+    
     this.feedbackService.getAllfeedbacksByUserId(userId).subscribe(
       (data: any) => {
         this.feedbacks = data;
@@ -31,18 +33,7 @@ export class FormerviewfeedbackComponent implements OnInit {
     );
   }
 
-  // deleteFeedback(feedbackId: string) {
-  //   this.feedbackService.deleteFeedback(feedbackId).subscribe(
-  //     (response) => {
-  //       console.log('Feedback deleted:', response);
-  //       // Refresh the feedbacks
-  //       this.getAllLoansByUserId();
-  //     },
-  //     (error) => {
-  //       console.error('Error:', error);
-  //     }
-  //   );
-  // }
+  
 
   openDeletePopup(feedbackId: string) {
     this.showDeletePopup = true;
