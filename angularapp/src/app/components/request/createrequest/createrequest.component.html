@@ -34,16 +34,16 @@
         <label for="AgrochemicalId">AgrochemicalId<span class="required">*</span></label>
         <input
           type="number"
-          name="AgrochemicalId"
-          [(ngModel)]="formData.AgrochemicalId"
-          placeholder="AgrochemicalId"
+          name="AgroChemicalId"
+          [(ngModel)]="formData.AgroChemicalId"
+          placeholder="AgroChemicalId"
           required
           disabled
-          #AgrochemicalId="ngModel"
-          (change)="handleChange($event, 'AgrochemicalId')"
+          #AgroChemicalId="ngModel"
+          (change)="handleChange($event, 'AgroChemicalId')"
         />
 
-        <div class="error" *ngIf="AgrochemicalId.invalid && AgrochemicalId.touched">
+        <div class="error" *ngIf="AgroChemicalId.invalid && AgroChemicalId.touched">
           *AgrochemicalId is required
         </div>
 

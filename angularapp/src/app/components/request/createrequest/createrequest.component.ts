@@ -17,7 +17,7 @@ export class CreaterequestComponent implements OnInit {
     
     UserId: null,
     CropId: null,
-    AgrochemicalId: null,
+    AgroChemicalId: null,
     Quantity: null,
     RequestPurpose: "",
     Status: "",
@@ -31,7 +31,7 @@ export class CreaterequestComponent implements OnInit {
   constructor(private requestService: RequestService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.formData.AgrochemicalId = Number(this.route.snapshot.paramMap.get('id'));
+    this.formData.AgroChemicalId = Number(this.route.snapshot.paramMap.get('id'));
     this.formData.UserId= Number(localStorage.getItem("userId"));
     console.log(localStorage.getItem("userRole"));
     
@@ -75,7 +75,7 @@ export class CreaterequestComponent implements OnInit {
       RequestId: null,
       UserId: null,
       CropId: null,
-      AgrochemicalId: null,
+      AgroChemicalId: null,
       Quantity: null,
       RequestPurpose: "",
       Status: "",
